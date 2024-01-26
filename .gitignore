@@ -1,8 +1,15 @@
 # dependencies
 /node_modules
 
-# production
-/dist
-
 # history
 /.history
+
+# production
+/dist
+/build
+
+yarn-error.log
+
+.DS_Store
+
+/backup
