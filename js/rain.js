@@ -9,7 +9,7 @@ canvas.height = height;
 const ctx = canvas.getContext('2d');
 const fontSize = 10 * dpr;
 const colWidth = fontSize;
-const colCount = Math.floor(width / colWidth);
+const colCount = Math.floor(width / (colWidth * dpr));
 const nextChars = new Array(colCount).fill(0);
 
 ctx.scale(dpr, dpr);
@@ -20,8 +20,8 @@ function getRandomColor() {
 }
 
 function getRandomText() {
-  const str = 'Hello world,this is Lester,and-will=show*you(a)code@rain.';
-  return str[Math.floor(Math.random() * str.length)];
+  const alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
+  return alphabet[Math.floor(Math.random() * alphabet.length)];
 }
 
 function paint() {
@@ -35,17 +35,13 @@ function paint() {
     const index = nextChars[i];
     const y = fontSize * (index + 1);
     ctx.fillText(char, x, y);
-    if (y > height && Math.random() > 0.99) {
+    if (y * 2 > height && Math.random() > 0.99) {
       nextChars[i] = 0;
     } else {
       nextChars[i]++;
     }
   }
 }
-
-// setInterval(() => {
-//   paint();
-// }, 40);
 
 function runAnimation() {
   paint();
