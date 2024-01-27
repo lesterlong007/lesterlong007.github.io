@@ -3,19 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/rain.css">
     <title>Lester Long</title>
     <style>
-        * {
-            margin: 0;
-        }
+      * {
+        margin: 0;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        fill: currentColor;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
     <!-- <h2>欢迎来到我的首页</h2> -->
     <!-- <h3>Lester Long</h3> -->
-    <canvas id="rain"></canvas>
 
-    <script src="./js/rain.js"></script>
+    <svg class="icon icon-rain" aria-hidden="true" title="代码雨">
+      <use xlink:href="#icon-rain" />
+    </svg>
+    <script
+      type="text/javascript"
+      src="https://at.alicdn.com/t/c/font_4425422_ajk6acmkfto.js"
+      async
+    ></script>
+    <script type="text/javascript">
+      const charIcon = document.querySelector(".icon-rain");
+      charIcon.onclick = function() {
+        console.log('icon clicked');
+        window.location.assign('./code-rain/rain.html');
+      }
+    </script>
   </body>
 </html>
