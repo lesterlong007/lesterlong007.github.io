@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
     <title>Lester Long</title>
     <style>
       * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      ul {
+        list-style: none;
         margin: 0;
       }
 
@@ -20,21 +27,63 @@
   <body>
     <!-- <h2>欢迎来到我的首页</h2> -->
     <!-- <h3>Lester Long</h3> -->
-
-    <svg class="icon icon-rain" aria-hidden="true" title="代码雨">
-      <use xlink:href="#icon-rain" />
-    </svg>
+    <header class="header">header bar</header>
+    <div class="content">content</div>
+    <footer class="dock">
+      <svg class="icon icon-rain dock-item" aria-hidden="true">
+        <use xlink:href="#icon-rain" data-index="0" />
+      </svg>
+      <span class="gap" data-index="0"></span>
+      <svg class="icon icon-ticket dock-item" aria-hidden="true">
+        <use xlink:href="#icon-ticket" data-index="1" />
+      </svg>
+      <span class="gap" data-index="1"></span>
+      <svg class="icon icon-note dock-item" aria-hidden="true">
+        <use xlink:href="#icon-note" data-index="2"  />
+      </svg>
+      <span class="gap" data-index="2"></span>
+      <svg class="icon icon-membership dock-item" aria-hidden="true">
+        <use xlink:href="#icon-membership" data-index="3" />
+      </svg>
+      <span class="gap" data-index="3"></span>
+      <svg class="icon icon-education dock-item" aria-hidden="true">
+        <use xlink:href="#icon-education" data-index="4" />
+      </svg>
+      <span class="gap" data-index="4"></span>
+      <svg class="icon icon-meeting dock-item" aria-hidden="true">
+        <use xlink:href="#icon-meeting" data-index="5" />
+      </svg>
+      <span class="gap" data-index="5"></span>
+      <svg class="icon icon-achievement dock-item" aria-hidden="true">
+        <use xlink:href="#icon-achievement" data-index="6" />
+      </svg>
+      <span class="gap" data-index="6"></span>
+      <svg class="icon icon-identity dock-item" aria-hidden="true">
+        <use xlink:href="#icon-identity"  data-index="7" />
+      </svg>
+      <span class="gap" data-index="7"></span>
+      <svg class="icon icon-question dock-item" aria-hidden="true">
+        <use xlink:href="#icon-question"  data-index="8" />
+      </svg>
+      <span class="gap" data-index="8"></span>
+      <svg class="icon icon-delicacy dock-item" aria-hidden="true">
+        <use xlink:href="#icon-delicacy"  data-index="9" />
+      </svg>
+      <span class="gap" data-index="9"></span>
+      <svg class="icon icon-coupon dock-item" aria-hidden="true">
+        <use xlink:href="#icon-coupon"  data-index="10" />
+      </svg>
+      <span class="gap" data-index="10"></span>
+      <svg class="icon icon-more dock-item" aria-hidden="true">
+        <use xlink:href="#icon-more"  data-index="11" />
+      </svg>
+    </footer>
+    
     <script
       type="text/javascript"
       src="https://at.alicdn.com/t/c/font_4425422_ajk6acmkfto.js"
       async
     ></script>
-    <script type="text/javascript">
-      const charIcon = document.querySelector(".icon-rain");
-      charIcon.onclick = function() {
-        console.log('icon clicked');
-        window.location.assign('./code-rain/rain.html');
-      }
-    </script>
+    <script type="text/javascript" src="./js/index.js"></script>
   </body>
 </html>
