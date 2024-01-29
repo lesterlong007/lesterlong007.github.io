@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://github.githubassets.com/favicons/favicon.png">
     <link rel="stylesheet" href="./css/index.css" />
     <title>Lester Long</title>
     <style>
@@ -24,12 +25,10 @@
     </style>
   </head>
   <body>
-    <!-- <h2>欢迎来到我的首页</h2> -->
-    <!-- <h3>Lester Long</h3> -->
     <header class="header">header bar</header>
     <div class="content">content</div>
     <footer class="dock">
-      <div class="dock-item" data-name="代码雨">
+      <!-- <div class="dock-item" data-name="代码雨">
         <svg class="icon icon-rain" aria-hidden="true" >
           <use xlink:href="#icon-rain" data-index="0" />
         </svg>
@@ -99,14 +98,20 @@
         <svg class="icon icon-more" aria-hidden="true">
           <use xlink:href="#icon-more"  data-index="11" />
         </svg>
-      </div>
+      </div> -->
     </footer>
     
     <script
       type="text/javascript"
-      src="https://at.alicdn.com/t/c/font_4425422_ajk6acmkfto.js"
+      src="https://at.alicdn.com/t/c/font_4425422_ammfnzf8mnd.js"
       async
     ></script>
-    <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript">
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.async = true;
+      script.src = './js/index.js?t=' + Date.now();
+      document.body.appendChild(script);
+    </script>
   </body>
 </html>

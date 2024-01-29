@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lester Long</title>
+    <style>
+      * {
+        margin: 0;
+      }
+      #sun {
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="sun"></canvas>
+    <script>
+      window.onload = function () {
+        const canvas = document.getElementById('sun');
+        const dpr = window.devicePixelRatio;
+
+        const width = window.innerWidth * dpr;
+        const height = window.innerHeight * dpr;
+        canvas.width = width;
+        canvas.height = height;
+
+        const sunImg = new Image();
+        const earthImg = new Image();
+        const moonImg = new Image();
+ 
+        const ctx = canvas.getContext('2d');
+
+        // 太阳的位置和半径
+        const sun = {
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          radius: 100
+        };
+
+        // 地球的初始位置和参数
+        const earth = {
+          distance: 500,
+          radius: 60,
+          speed: 0.01,
+          angle: 0
+        };
+
+        // 月球的初始位置和参数
+        const moon = {
+          distance: 100,
+          radius: 20,
+          speed: 0.05,
+          angle: 0
+        };
+
+        function draw() {
+          // 清除画布
+          ctx.clearRect(0, 0, width, height);
+
+          ctx.shadowColor = 'white';
+          ctx.shadowBlur = 50;
+
+          const sunGradient = ctx.createRadialGradient(sun.x, sun.y, 0, sun.x, sun.y, sun.radius);
+          sunGradient.addColorStop(0, 'gold');
+          sunGradient.addColorStop(1, 'orange');
+
+          // 绘制太阳
+          ctx.beginPath();
+          ctx.arc(sun.x, sun.y, sun.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = sunGradient;
+          ctx.fill();
+
+          // 计算地球的位置
+          const earthX = sun.x + Math.cos(earth.angle) * earth.distance;
+          const earthY = sun.y + Math.sin(earth.angle) * earth.distance;
+
+          // 绘制地球
+          ctx.beginPath();
+          ctx.arc(earthX, earthY, earth.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = 'blue';
+          ctx.fill();
+
+          // 计算月球的位置
+          const moonX = earthX + Math.cos(moon.angle) * moon.distance;
+          const moonY = earthY + Math.sin(moon.angle) * moon.distance;
+
+          // 绘制月球
+          ctx.beginPath();
+          ctx.arc(moonX, moonY, moon.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = 'gray';
+          ctx.fill();
+
+          // 更新地球和月球的角度
+          earth.angle += earth.speed;
+          moon.angle += moon.speed;
+
+          requestAnimationFrame(draw);
+        }
+
+        // draw();
+
+        sunImg.src = './images/sun.png';
+        earthImg.src = './images/earth.png';
+        moonImg.src = './images/moon.png';
+        function paint() {
+          ctx.globalCompositeOperation = 'destination-over';
+          // 清除画布
+          ctx.clearRect(0, 0, width, height);
+         
+          // 绘制太阳
+          ctx.drawImage(sunImg, canvas.width / 2 - 50, canvas.height / 2 - 50, 200, 200);
+
+          const earthX = sun.x + Math.cos(earth.angle) * earth.distance;
+          const earthY = sun.y + Math.sin(earth.angle) * earth.distance;
+          ctx.drawImage(earthImg, earthX - 25, earthY - 25, 100, 100);
+
+  
+          const moonX = earthX + Math.cos(moon.angle) * moon.distance;
+          const moonY = earthY + Math.sin(moon.angle) * moon.distance;
+          ctx.drawImage(moonImg, moonX - 15, moonY - 15, 50, 50);
+
+          // 更新地球和月球的角度
+          earth.angle += earth.speed;
+          moon.angle += moon.speed;
+
+          requestAnimationFrame(paint);
+        }
+
+        paint();
+      };
+    </script>
+  </body>
+</html>

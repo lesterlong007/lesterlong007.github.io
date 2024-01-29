@@ -1,13 +1,79 @@
-const charIcon = document.querySelector('.icon-rain');
-charIcon.onclick = function () {
-  console.log('icon clicked');
-  window.location.assign('./code-rain/rain.html');
-};
+const menuList = [
+  {
+    id: 'rain',
+    name: '代码雨',
+    link: './code-rain/rain.html'
+  },
+  {
+    id: 'sun',
+    name: '太阳系',
+    link: './sun/sun.html'
+  },
+  {
+    id: 'ticket',
+    name: '发票'
+  },
+  {
+    id: 'note',
+    name: '笔记本'
+  },
+  {
+    id: 'membership',
+    name: '会员'
+  },
+  {
+    id: 'education',
+    name: '教育'
+  },
+  {
+    id: 'meeting',
+    name: '会议'
+  },
+  {
+    id: 'achievement',
+    name: '成就'
+  },
+  {
+    id: 'identity',
+    name: '身份'
+  },
+  {
+    id: 'question',
+    name: '疑问'
+  },
+  {
+    id: 'delicacy',
+    name: '美食'
+  },
+  {
+    id: 'coupon',
+    name: '优惠券'
+  },
+  {
+    id: 'more',
+    name: '更多'
+  }
+];
 
-const menuList = document.querySelectorAll('.dock .dock-item');
+function renderMenuList() {
+  let htmlStr = '';
+  menuList.forEach(function (item, index) {
+    const { name = '', id } = item;
+    const curStr = `<div class="dock-item" data-name="${name}">\n<svg class="icon icon-${id}" aria-hidden="true">\n<use xlink:href="#icon-${id}" data-index="${index}" />\n</svg>\n</div>`;
+    htmlStr += curStr;
+    if (index < menuList.length - 1) {
+      htmlStr += `<span class="gap" data-index="${index}"></span>`;
+    }
+  });
+  document.querySelector('.dock').innerHTML = htmlStr;
+}
+
+renderMenuList();
+
+const menuEleList = document.querySelectorAll('.dock .dock-item');
 const gapList = document.querySelectorAll('.dock .gap');
 
-menuList.forEach(function (item) {
+menuEleList.forEach(function (item) {
   item.style.setProperty('--ratio', 1);
 });
 
@@ -15,7 +81,7 @@ const dock = document.querySelector('.dock');
 const zoomCount = 4;
 const maxScale = 2;
 const step = 0.2;
-const menuLength = menuList.length;
+const menuLength = menuEleList.length;
 let curLabelEle = null;
 
 function removeLabel() {
@@ -27,12 +93,11 @@ function removeLabel() {
   }
 }
 
-function showMenuName(ele) {
-  const menuName = ele.dataset.name;
-  console.log(menuName);
+function showMenuName(ele, index) {
+  const menuName = menuList[index].name;
   if (!menuName) {
     return removeLabel();
-  };
+  }
   if (curLabelEle) {
     curLabelEle.textContent = menuName;
   } else {
@@ -53,11 +118,11 @@ function showMenuName(ele) {
 }
 
 function setScale(index) {
-  menuList.forEach(function (item, i) {
+  menuEleList.forEach(function (item, i) {
     const distance = Math.abs(index - i);
     if (distance === 0) {
       item.style.setProperty('--ratio', maxScale);
-      showMenuName(item);
+      showMenuName(item, i);
     } else if (distance === 1) {
       item.style.setProperty('--ratio', 1.8);
     } else if (distance === 2) {
@@ -71,7 +136,7 @@ function setScale(index) {
 }
 
 function resetScale() {
-  menuList.forEach(function (item) {
+  menuEleList.forEach(function (item) {
     item.style.setProperty('--ratio', 1);
   });
 }
@@ -99,6 +164,16 @@ dock.addEventListener('mouseover', function (e) {
 
 dock.addEventListener('mouseleave', function () {
   resetScale();
-  // removeLabel();
-  // curLabelEle = null;
+  removeLabel();
+  curLabelEle = null;
+});
+
+dock.addEventListener('click', function (e) {
+  if (Object.hasOwnProperty.call(e.target.dataset, 'index')) {
+    const index = +e.target.dataset.index;
+    const link = menuList[index].link;
+    if (link) {
+      window.location.assign(link);
+    }
+  }
 });
