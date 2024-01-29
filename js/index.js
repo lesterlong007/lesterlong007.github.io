@@ -1,86 +1,104 @@
-const charIcon = document.querySelector(".icon-rain");
+const charIcon = document.querySelector('.icon-rain');
 charIcon.onclick = function () {
-  console.log("icon clicked");
-  window.location.assign("./code-rain/rain.html");
+  console.log('icon clicked');
+  window.location.assign('./code-rain/rain.html');
 };
 
-const menuList = document.querySelectorAll(".dock .dock-item");
-const gapList = document.querySelectorAll(".dock .gap");
+const menuList = document.querySelectorAll('.dock .dock-item');
+const gapList = document.querySelectorAll('.dock .gap');
 
 menuList.forEach(function (item) {
-  item.style.setProperty("--ratio", 1);
+  item.style.setProperty('--ratio', 1);
 });
 
-const dock = document.querySelector(".dock");
+const dock = document.querySelector('.dock');
 const zoomCount = 4;
-const maxScale = 1.8;
-const step = (maxScale - 1) / zoomCount;
+const maxScale = 2;
+const step = 0.2;
 const menuLength = menuList.length;
+let curLabelEle = null;
 
-function setScale(indexes) {
-  if (indexes.length > 1) {
-    //
-  } else {
-    const index = indexes[0];
-    let scale = maxScale;
-    for (let i = 0; i <= 3; i++) {
-      const tIndex = index + i;
-      if (tIndex < menuLength) {
-        menuList[tIndex] = scale;
-        scale -= step;
-      } else {
-        break;
-      }
+function removeLabel() {
+  if (curLabelEle) {
+    const parent = curLabelEle.parentNode;
+    if (parent) {
+      parent.removeChild(curLabelEle);
     }
-    scale = maxScale;
-    for (let i = 0; i <= 3; i++) {
-      const tIndex = index - i;
-      menuList[index + i] = scale;
-      if (tIndex >= 0) {
-        menuList[tIndex].style.setProperty("--ratio", scale);
-        scale -= step;
-      } else {
-        break;
-      }
-    }
-    menuList.forEach(function (item, i) {
-      const distance = Math.abs(index - i);
-      if (distance === 0) {
-        item.style.setProperty("--ratio", maxScale);
-      } else if (distance === 1) {
-        item.style.setProperty("--ratio", maxScale - step);
-      } else if (distance === 2) {
-        item.style.setProperty("--ratio", maxScale - 2 * step);
-      } else if (distance === 3) {
-        item.style.setProperty("--ratio", maxScale - 3 * step);
-      } else {
-        item.style.setProperty("--ratio", 1);
-      }
-    });
   }
 }
 
-dock.addEventListener("mouseover", function (e) {
-  console.log(e.target);
-  // console.log(e.target.classList.contains('gap'));
-  // console.log(e.target.dataset, Object.hasOwnProperty.call(e.target.dataset, 'index'));
-  const isContainer = e.target.classList.contains("dock");
-  const isGap = e.target.classList.contains("gap");
-  if (isContainer) {
-    //
-  } else if (isGap) {
-    //
-    const index = +e.target.dataset.index;
-    setScale([index, index + 1]);
+function showMenuName(ele) {
+  const menuName = ele.dataset.name;
+  console.log(menuName);
+  if (!menuName) {
+    return removeLabel();
+  };
+  if (curLabelEle) {
+    curLabelEle.textContent = menuName;
   } else {
-    if (Object.hasOwnProperty.call(e.target.dataset, "index")) {
+    const label = document.createElement('span');
+    label.textContent = menuName;
+    label.style.fontSize = '16px';
+    label.style.position = 'absolute';
+    label.style.top = '-36px';
+    label.style.left = '50%';
+    label.style.whiteSpace = 'nowrap';
+    label.style.transform = 'translateX(-50%)';
+    curLabelEle = label;
+  }
+  if (!ele.contains(curLabelEle)) {
+    removeLabel();
+    ele.appendChild(curLabelEle);
+  }
+}
+
+function setScale(index) {
+  menuList.forEach(function (item, i) {
+    const distance = Math.abs(index - i);
+    if (distance === 0) {
+      item.style.setProperty('--ratio', maxScale);
+      showMenuName(item);
+    } else if (distance === 1) {
+      item.style.setProperty('--ratio', 1.8);
+    } else if (distance === 2) {
+      item.style.setProperty('--ratio', 1.5);
+    } else if (distance === 3) {
+      item.style.setProperty('--ratio', 1.1);
+    } else {
+      item.style.setProperty('--ratio', 1);
+    }
+  });
+}
+
+function resetScale() {
+  menuList.forEach(function (item) {
+    item.style.setProperty('--ratio', 1);
+  });
+}
+
+dock.addEventListener('mouseover', function (e) {
+  const isContainer = e.target.classList.contains('dock');
+  const isGap = e.target.classList.contains('gap');
+  if (isContainer) {
+    resetScale();
+  } else if (isGap) {
+    const index = +e.target.dataset.index;
+    const { width = 20, left } = e.target.getBoundingClientRect();
+    if (e.clientX - left > width / 2) {
+      setScale(index + 1);
+    } else {
+      setScale(index);
+    }
+  } else {
+    if (Object.hasOwnProperty.call(e.target.dataset, 'index')) {
       const index = +e.target.dataset.index;
       setScale([index]);
     }
   }
 });
 
-dock.addEventListener("mouseleave", function () {
-  console.log("mouseleave");
-  // reset
+dock.addEventListener('mouseleave', function () {
+  resetScale();
+  // removeLabel();
+  // curLabelEle = null;
 });
