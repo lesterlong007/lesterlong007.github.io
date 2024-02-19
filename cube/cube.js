@@ -1,13 +1,12 @@
 window.onload = function () {
-  const cube = document.querySelector('.cube');
-  const container = document.querySelector('.cube-container');
+  const cube = document.querySelector(".cube");
   let isMouseDown = false;
   let startX,
     startY,
     startRotateX = 0,
     startRotateY = 0;
 
-  container.addEventListener('mousedown', function (event) {
+  cube.addEventListener("mousedown", function (event) {
     isMouseDown = true;
     startX = event.clientX;
     startY = event.clientY;
@@ -17,18 +16,18 @@ window.onload = function () {
     startRotateY = rotateYRes ? parseInt(rotateYRes[1]) : 0;
   });
 
-  container.addEventListener('mousemove', function (event) {
+  cube.addEventListener("mousemove", function (event) {
     if (!isMouseDown) return;
-    const deltaX = event.clientX - startX ;
+    const deltaX = event.clientX - startX;
     const deltaY = event.clientY - startY;
-    cube.style.transform = 'rotateX(' + (startRotateX - deltaY) + 'deg) rotateY(' + (startRotateY + deltaX) + 'deg)';
+    cube.style.transform = "rotateX(" + (startRotateX - deltaY) + "deg) rotateY(" + (startRotateY + deltaX) + "deg)";
   });
 
-  container.addEventListener('mouseup', function () {
+  cube.addEventListener("mouseup", function () {
     isMouseDown = false;
   });
 
-  container.addEventListener('mouseout', function () {
+  cube.addEventListener("mouseout", function () {
     isMouseDown = false;
   });
 };
