@@ -10,8 +10,9 @@ const menuList = [
     link: './sun/sun.html'
   },
   {
-    id: 'ticket',
-    name: '发票'
+    id: 'cube',
+    name: '魔方',
+    link: './cube/cube.html'
   },
   {
     id: 'note',
