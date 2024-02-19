@@ -8,68 +8,185 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.cube-container {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* perspective: 800px; */
 }
 
 .cube {
   width: 300px;
   height: 300px;
   position: relative;
-  /* perspective: 800px; */
   transform-style: preserve-3d;
-  transform: rotateX(-30deg) rotateY(30deg) rotateZ(0deg);
+  transform: rotateX(-20deg) rotateY(20deg) rotateZ(0deg);
   transition: transform 1s;
-  /* animation: rotateAnimation 3s linear infinite; */
+}
+
+.cube.animation {
+  animation: rotateAnimation 6s linear infinite;
 }
 
 .face {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
   position: absolute;
   width: 300px;
   height: 300px;
-  border: 1px solid black;
+  background-color: black;
+  border: 10px solid black;
   box-sizing: border-box;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  /* opacity: 0.9; */
+  opacity: 0.9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s;
+}
+
+.in-face {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  position: absolute;
+  left: 75px;
+  top: 75px;
+  width: 150px;
+  height: 150px;
+  background-color: black;
+  border: 5px solid black;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  opacity: 0.9;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes rotateAnimation {
   0% {
-    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    transform: rotateX(-360deg) rotateY(-180deg);
   }
   100% {
-    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    transform: rotateX(360deg) rotateY(360deg);
   }
 }
 
 .front {
   transform: rotateY(0deg) translateZ(150px);
-  background-color: red;
 }
 
 .back {
   transform: translateZ(-150px) rotateY(180deg);
-  background-color: orange;
 }
 
 .top {
   transform: rotateX(90deg) translateZ(150px);
-  background-color: blueviolet;
 }
 
 .bottom {
   transform: rotateX(-90deg) translateZ(150px);
-  background-color: yellow;
 }
 
 .left {
   transform: rotateY(-90deg) translateZ(150px);
-  background-color: green;
 }
 
 .right {
   transform: rotateY(90deg) translateZ(150px);
+}
+
+.front .cell {
+  background-color: red;
+}
+
+.back .cell {
+  background-color: yellow;
+}
+
+.top .cell {
+  background-color: white;
+}
+
+.bottom .cell {
+  background-color: green;
+}
+
+.left .cell {
   background-color: blue;
+}
+
+.right .cell {
+  background-color: purple;
+}
+
+.in-front {
+  transform: rotateY(0deg) translateZ(75px);
+}
+
+.in-back {
+  transform: translateZ(-75px) rotateY(180deg);
+}
+
+.in-top {
+  transform: rotateX(90deg) translateZ(75px);
+}
+
+.in-bottom {
+  transform: rotateX(-90deg) translateZ(75px);
+}
+
+.in-left {
+  transform: rotateY(-90deg) translateZ(75px);
+}
+
+.in-right {
+  transform: rotateY(90deg) translateZ(75px);
+}
+
+.in-front .cell {
+  background-color: gold;
+}
+
+.in-back .cell {
+  background-color: white;
+}
+
+.in-top .cell {
+  background-color: gray;
+}
+
+.in-bottom .cell {
+  background-color: pink;
+}
+
+.in-left .cell {
+  background-color: blueviolet;
+}
+
+.in-right .cell {
+  background-color: salmon;
+}
+
+.footer {
+  margin-top: 150px;
+}
+
+.footer .btn {
+  cursor: pointer;
+  padding: 5px 20px;
+  border-radius: 10px;
+  border: 1px solid blue;
+  font-size: 18px;
 }
